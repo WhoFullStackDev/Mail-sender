@@ -1,0 +1,27 @@
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
+async function sendMailer(email) {
+  console.log(email);
+  const info = await transporter.sendMail({
+    from: '" Ghost is here👻" <kingsuk055@gmail.email>',
+    to: `${email}`,
+    subject: "Try email sender client nodemailer",
+    text: "Thanks for review my project",
+    html: "<b>Hello world?</b>",
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+}
+
+module.exports = sendMailer;

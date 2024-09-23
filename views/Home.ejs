@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Send Mail</title>
+  </head>
+  <body>
+    <form id="mailForm">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        placeholder="Enter your email"
+        id="email"
+        name="email"
+        required
+      />
+      <button type="submit">Send</button>
+    </form>
+
+    <script>
+      const mailForm = document.getElementById("mailForm");
+      const email = document.getElementById("email");
+
+      mailForm.addEventListener("submit", async (e) => {
+        try {
+          e.preventDefault();
+
+          const response = await fetch("/mail", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: email.value }),
+          });
+
+          if (response.ok) {
+            alert("Email send successfully");
+            mailForm.reset();
+          } else {
+            console.error("Upload failed:", response.statusText);
+          }
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      });
+    </script>
+  </body>
+</html>
