@@ -2,11 +2,11 @@ const sendMailer = require("../utils/mailer");
 
 const sendMail = async (req, res) => {
   try {
-    const { email } = req.body;
-    if (!email) {
+    const { email, message } = req.body;
+    if (!email && !message) {
       req.status(400).send("Enter all fields please");
     }
-    await sendMailer(email);
+    await sendMailer(email, message);
     res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {
     console.error(error);

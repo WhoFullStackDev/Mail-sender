@@ -10,14 +10,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function sendMailer(email) {
-  console.log(email);
+async function sendMailer(email, message) {
   const info = await transporter.sendMail({
     from: '" Ghost is here👻" <kingsuk055@gmail.email>',
     to: `${email}`,
     subject: "Try email sender client nodemailer",
-    text: "Thanks for review my project",
-    html: "<b>Hello world?</b>",
+    text: `${message}`,
   });
 
   console.log("Message sent: %s", info.messageId);
